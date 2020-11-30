@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class WordFrequencyGame {
-    public String getResult(String inputSentence){
+    public String getResult(String inputSentence) {
 
 
-        if (inputSentence.split("\\s+").length==1) {
+        if (inputSentence.split("\\s+").length == 1) {
             return inputSentence + " 1";
         } else {
 
@@ -20,10 +20,10 @@ public class WordFrequencyGame {
                 }
 
                 //get the map for the next step of sizing the same word
-                Map<String, List<Input>> mapWordCount =getListMap(inputList);
+                Map<String, List<Input>> mapWordCount = getListMap(inputList);
 
                 List<Input> listWordCount = new ArrayList<>();
-                for (Map.Entry<String, List<Input>> entry : mapWordCount.entrySet()){
+                for (Map.Entry<String, List<Input>> entry : mapWordCount.entrySet()) {
                     Input input = new Input(entry.getKey(), entry.getValue().size());
                     listWordCount.add(input);
                 }
@@ -33,7 +33,7 @@ public class WordFrequencyGame {
 
                 StringJoiner joiner = new StringJoiner("\n");
                 for (Input word : inputList) {
-                    String wordCountLine = word.getValue() + " " +word.getWordCount();
+                    String wordCountLine = word.getValue() + " " + word.getWordCount();
                     joiner.add(wordCountLine);
                 }
                 return joiner.toString();
@@ -46,17 +46,15 @@ public class WordFrequencyGame {
     }
 
 
-    private Map<String,List<Input>> getListMap(List<Input> inputList) {
+    private Map<String, List<Input>> getListMap(List<Input> inputList) {
         Map<String, List<Input>> mapWordCount = new HashMap<>();
-        for (Input input :  inputList){
+        for (Input input : inputList) {
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!mapWordCount.containsKey(input.getValue())){
+            if (!mapWordCount.containsKey(input.getValue())) {
                 ArrayList listWordCount = new ArrayList<>();
                 listWordCount.add(input);
                 mapWordCount.put(input.getValue(), listWordCount);
-            }
-
-            else {
+            } else {
                 mapWordCount.get(input.getValue()).add(input);
             }
         }

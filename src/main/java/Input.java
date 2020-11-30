@@ -1,10 +1,10 @@
 public class Input {
-    private String value;
-    private int count;
+    private final String value;
+    private final int count;
 
-    public Input(String word, int count){
-        this.value =word;
-        this.count =count;
+    public Input(String word, int count) {
+        this.value = word;
+        this.count = count;
     }
 
 
