@@ -17,10 +17,10 @@ public class WordFrequencyGame {
                 listWordCount.add(new WordFrequency(mapWordCountEntry.getKey(), mapWordCountEntry.getValue().size()));
             }
             wordFrequencyList = listWordCount;
-            wordFrequencyList.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
+            wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
             StringJoiner joiner = new StringJoiner(REGEX_NEWLINE);
             for (WordFrequency word : wordFrequencyList) {
-                joiner.add(word.getValue() + " " + word.getWordCount());
+                joiner.add(word.getWord() + " " + word.getCount());
             }
             return joiner.toString();
         } catch (Exception calculateErrorException) {
@@ -31,12 +31,12 @@ public class WordFrequencyGame {
     private Map<String, List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
         Map<String, List<WordFrequency>> mapWordCount = new HashMap<>();
         for (WordFrequency wordFrequency : wordFrequencyList) {
-            if (!mapWordCount.containsKey(wordFrequency.getValue())) {
+            if (!mapWordCount.containsKey(wordFrequency.getWord())) {
                 ArrayList listWordCount = new ArrayList<>();
                 listWordCount.add(wordFrequency);
-                mapWordCount.put(wordFrequency.getValue(), listWordCount);
+                mapWordCount.put(wordFrequency.getWord(), listWordCount);
             } else {
-                mapWordCount.get(wordFrequency.getValue()).add(wordFrequency);
+                mapWordCount.get(wordFrequency.getWord()).add(wordFrequency);
             }
         }
         return mapWordCount;
