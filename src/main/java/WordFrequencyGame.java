@@ -1,10 +1,13 @@
 import java.util.*;
 
 public class WordFrequencyGame {
+    private final String REGEX_WHITESPACE = "\\s+";
+    private final String REGEX_NEWLINE = "\n";
+    private final String calculateErrorMessage = "Calculate Error";
     public String getResult(String inputSentence) {
         try {
             //split the input string with 1 to n pieces of spaces
-            String[] arrayWord = inputSentence.split("\\s+");
+            String[] arrayWord = inputSentence.split(REGEX_WHITESPACE);
             List<Input> inputList = new ArrayList<>();
             for (String word : arrayWord) {
                 Input input = new Input(word, 1);
@@ -19,17 +22,16 @@ public class WordFrequencyGame {
             }
             inputList = listWordCount;
             inputList.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
-            StringJoiner joiner = new StringJoiner("\n");
+            StringJoiner joiner = new StringJoiner(REGEX_NEWLINE);
             for (Input word : inputList) {
                 String wordCountLine = word.getValue() + " " + word.getWordCount();
                 joiner.add(wordCountLine);
             }
             return joiner.toString();
         } catch (Exception calculateErrorException) {
-            return "Calculate Error";
+            return calculateErrorMessage;
         }
     }
-
 
     private Map<String, List<Input>> getListMap(List<Input> inputList) {
         Map<String, List<Input>> mapWordCount = new HashMap<>();
