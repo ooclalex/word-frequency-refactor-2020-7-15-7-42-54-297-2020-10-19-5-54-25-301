@@ -11,24 +11,24 @@ public class WordFrequencyGame {
             for (String word : arrayWord) {
                 wordFrequencyList.add(new WordFrequency(word, 1));
             }
-            Map<String, List<WordFrequency>> mapWordCount = getListMap(wordFrequencyList);
+            Map<String, List<WordFrequency>> mapWordCount = getWordFrequencyMap(wordFrequencyList);
             List<WordFrequency> listWordCount = new ArrayList<>();
             for (Map.Entry<String, List<WordFrequency>> mapWordCountEntry : mapWordCount.entrySet()) {
                 listWordCount.add(new WordFrequency(mapWordCountEntry.getKey(), mapWordCountEntry.getValue().size()));
             }
             wordFrequencyList = listWordCount;
             wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
-            StringJoiner joiner = new StringJoiner(REGEX_NEWLINE);
+            StringJoiner wordFrequencyResult = new StringJoiner(REGEX_NEWLINE);
             for (WordFrequency word : wordFrequencyList) {
-                joiner.add(word.getWord() + " " + word.getCount());
+                wordFrequencyResult.add(word.getWord() + " " + word.getCount());
             }
-            return joiner.toString();
+            return wordFrequencyResult.toString();
         } catch (Exception calculateErrorException) {
             return calculateErrorMessage;
         }
     }
 
-    private Map<String, List<WordFrequency>> getListMap(List<WordFrequency> wordFrequencyList) {
+    private Map<String, List<WordFrequency>> getWordFrequencyMap(List<WordFrequency> wordFrequencyList) {
         Map<String, List<WordFrequency>> mapWordCount = new HashMap<>();
         for (WordFrequency wordFrequency : wordFrequencyList) {
             if (!mapWordCount.containsKey(wordFrequency.getWord())) {
