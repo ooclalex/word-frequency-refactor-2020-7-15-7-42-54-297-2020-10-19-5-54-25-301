@@ -7,7 +7,6 @@ public class Input {
         this.count = count;
     }
 
-
     public String getValue() {
         return this.value;
     }
@@ -15,6 +14,4 @@ public class Input {
     public int getWordCount() {
         return this.count;
     }
-
-
 }
