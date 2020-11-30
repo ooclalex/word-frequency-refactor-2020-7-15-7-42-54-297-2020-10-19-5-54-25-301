@@ -8,17 +8,7 @@ public class WordFrequencyGame {
     private final String calculateErrorMessage = "Calculate Error";
     public String getResult(String inputSentence) {
         try {
-            String[] arrayWord = inputSentence.split(REGEX_WHITESPACE);
-            List<WordFrequency> wordFrequencyList = new ArrayList<>();
-            for (String word : arrayWord) {
-                wordFrequencyList.add(new WordFrequency(word, 1));
-            }
-            Map<String, List<WordFrequency>> mapWordCount = getWordFrequencyMap(wordFrequencyList);
-            List<WordFrequency> listWordCount = new ArrayList<>();
-            for (Map.Entry<String, List<WordFrequency>> mapWordCountEntry : mapWordCount.entrySet()) {
-                listWordCount.add(new WordFrequency(mapWordCountEntry.getKey(), mapWordCountEntry.getValue().size()));
-            }
-            wordFrequencyList = listWordCount;
+            List<WordFrequency> wordFrequencyList = calculateWordFrequency(inputSentence);
             wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
             StringJoiner wordFrequencyResult = new StringJoiner(REGEX_NEWLINE);
             for (WordFrequency word : wordFrequencyList) {
@@ -28,6 +18,20 @@ public class WordFrequencyGame {
         } catch (Exception calculateErrorException) {
             return calculateErrorMessage;
         }
+    }
+
+    private List<WordFrequency> calculateWordFrequency(String sentence) {
+        String[] arrayWord = sentence.split(REGEX_WHITESPACE);
+        List<WordFrequency> wordFrequencyList = new ArrayList<>();
+        for (String word : arrayWord) {
+            wordFrequencyList.add(new WordFrequency(word, 1));
+        }
+        Map<String, List<WordFrequency>> mapWordCount = getWordFrequencyMap(wordFrequencyList);
+        List<WordFrequency> listWordCount = new ArrayList<>();
+        for (Map.Entry<String, List<WordFrequency>> mapWordCountEntry : mapWordCount.entrySet()) {
+            listWordCount.add(new WordFrequency(mapWordCountEntry.getKey(), mapWordCountEntry.getValue().size()));
+        }
+        return listWordCount;
     }
 
     private String createWordFrequencyLine(WordFrequency word) {
