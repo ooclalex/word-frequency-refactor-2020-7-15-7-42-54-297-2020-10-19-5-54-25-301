@@ -3,24 +3,24 @@ import org.graalvm.compiler.word.Word;
 import java.util.*;
 
 public class WordFrequencyGame {
-    private final String REGEX_WHITESPACE = "\\s+";
-    private final String REGEX_NEWLINE = "\n";
-    private final String calculateErrorMessage = "Calculate Error";
     public String getResult(String inputSentence) {
         try {
             List<WordFrequency> wordFrequencyList = calculateWordFrequency(inputSentence);
             wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
+            String REGEX_NEWLINE = "\n";
             StringJoiner wordFrequencyResult = new StringJoiner(REGEX_NEWLINE);
             for (WordFrequency word : wordFrequencyList) {
                 wordFrequencyResult.add(createWordFrequencyLine(word));
             }
             return wordFrequencyResult.toString();
         } catch (Exception calculateErrorException) {
-            return calculateErrorMessage;
+            // Intellij told me to convert to local variable, then told me to use inline variable
+            return "Calculate Error";
         }
     }
 
     private List<WordFrequency> calculateWordFrequency(String sentence) {
+        String REGEX_WHITESPACE = "\\s+";
         String[] arrayWord = sentence.split(REGEX_WHITESPACE);
         List<WordFrequency> wordFrequencyList = new ArrayList<>();
         for (String word : arrayWord) {
