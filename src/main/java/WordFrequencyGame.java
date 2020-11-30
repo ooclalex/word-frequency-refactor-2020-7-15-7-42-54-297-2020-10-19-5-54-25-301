@@ -6,12 +6,7 @@ public class WordFrequencyGame {
         try {
             List<WordFrequency> wordFrequencyList = calculateWordFrequency(inputSentence);
             wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
-            String REGEX_NEWLINE = "\n";
-            StringJoiner wordFrequencyResult = new StringJoiner(REGEX_NEWLINE);
-            for (WordFrequency word : wordFrequencyList) {
-                wordFrequencyResult.add(createWordFrequencyLine(word));
-            }
-            return wordFrequencyResult.toString();
+            return createWordFrequencyResult(wordFrequencyList);
         } catch (Exception calculateErrorException) {
             // Intellij told me to convert to local variable, then told me to use inline variable
             return "Calculate Error";
@@ -30,17 +25,10 @@ public class WordFrequencyGame {
         return String.format("%s %d", word.getWord(), word.getCount());
     }
 
-    private Map<String, List<WordFrequency>> getWordFrequencyMap(List<WordFrequency> wordFrequencyList) {
-        Map<String, List<WordFrequency>> mapWordCount = new HashMap<>();
-        for (WordFrequency wordFrequency : wordFrequencyList) {
-            if (!mapWordCount.containsKey(wordFrequency.getWord())) {
-                ArrayList<WordFrequency> listWordCount = new ArrayList<>();
-                listWordCount.add(wordFrequency);
-                mapWordCount.put(wordFrequency.getWord(), listWordCount);
-            } else {
-                mapWordCount.get(wordFrequency.getWord()).add(wordFrequency);
-            }
-        }
-        return mapWordCount;
+    private String createWordFrequencyResult(List<WordFrequency> wordFrequencyList) {
+        String REGEX_NEWLINE = "\n";
+        StringJoiner wordFrequencyResult = new StringJoiner(REGEX_NEWLINE);
+        wordFrequencyList.stream().map(this::createWordFrequencyLine).forEach(wordFrequencyResult::add);
+        return wordFrequencyResult.toString();
     }
 }
