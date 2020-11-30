@@ -1,3 +1,5 @@
+import org.graalvm.compiler.word.Word;
+
 import java.util.*;
 
 public class WordFrequencyGame {
@@ -36,7 +38,7 @@ public class WordFrequencyGame {
         Map<String, List<WordFrequency>> mapWordCount = new HashMap<>();
         for (WordFrequency wordFrequency : wordFrequencyList) {
             if (!mapWordCount.containsKey(wordFrequency.getWord())) {
-                ArrayList listWordCount = new ArrayList<>();
+                ArrayList<WordFrequency> listWordCount = new ArrayList<>();
                 listWordCount.add(wordFrequency);
                 mapWordCount.put(wordFrequency.getWord(), listWordCount);
             } else {
