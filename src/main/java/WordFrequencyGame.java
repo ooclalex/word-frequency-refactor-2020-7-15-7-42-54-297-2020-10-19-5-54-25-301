@@ -9,21 +9,18 @@ public class WordFrequencyGame {
             String[] arrayWord = inputSentence.split(REGEX_WHITESPACE);
             List<Input> inputList = new ArrayList<>();
             for (String word : arrayWord) {
-                Input input = new Input(word, 1);
-                inputList.add(input);
+                inputList.add(new Input(word, 1));
             }
             Map<String, List<Input>> mapWordCount = getListMap(inputList);
             List<Input> listWordCount = new ArrayList<>();
             for (Map.Entry<String, List<Input>> mapWordCountEntry : mapWordCount.entrySet()) {
-                Input input = new Input(mapWordCountEntry.getKey(), mapWordCountEntry.getValue().size());
-                listWordCount.add(input);
+                listWordCount.add(new Input(mapWordCountEntry.getKey(), mapWordCountEntry.getValue().size()));
             }
             inputList = listWordCount;
             inputList.sort((word1, word2) -> word2.getWordCount() - word1.getWordCount());
             StringJoiner joiner = new StringJoiner(REGEX_NEWLINE);
             for (Input word : inputList) {
-                String wordCountLine = word.getValue() + " " + word.getWordCount();
-                joiner.add(wordCountLine);
+                joiner.add(word.getValue() + " " + word.getWordCount());
             }
             return joiner.toString();
         } catch (Exception calculateErrorException) {
